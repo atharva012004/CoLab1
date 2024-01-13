@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import io from "socket.io-client";
-import ClientRoom from "./component/ClientRoom";
-import JoinCreateRoom from "./component/JoinCreateRoom";
-import Room from "./component/Room";
-import Sidebar from "./component/Sidebar";
-
+import ClientRoom from "./components/ClientRoom";
+import JoinCreateRoom from "./components/JoinCreateRoom";
+import Room from "./components/Room";
+import Sidebar from "./components/Sidebar";
 import "./style.css";
 
 const server = "http://localhost:5000";
+
 const connectionOptions = {
   "force new connection": true,
   reconnectionAttempts: "Infinity",

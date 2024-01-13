@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 
 const JoinCreateRoom = ({ uuid, setUser, setRoomJoined }) => {
+  // These useState hooks are used to manage the state of the room ID, name, joinName, and joinRoomId.
   const [roomId, setRoomId] = useState(uuid());
   const [name, setName] = useState("");
   const [joinName, setJoinName] = useState("");
   const [joinRoomId, setJoinRoomId] = useState("");
 
   const handleCreateSubmit = (e) => {
+    // This function is triggered when the create form is submitted.
+    // It prevents the default form submission behavior, checks if a name was entered,
+    // and then sets the user state and sets roomJoined to true.
+
     e.preventDefault();
     if (!name) return toast.dark("Please enter your name!");
 
@@ -21,7 +26,12 @@ const JoinCreateRoom = ({ uuid, setUser, setRoomJoined }) => {
     });
     setRoomJoined(true);
   };
+
   const handleJoinSubmit = (e) => {
+    // This function is triggered when the join form is submitted.
+    // It prevents the default form submission behavior, checks if a name was entered,
+    // and then sets the user state and sets roomJoined to true.
+
     e.preventDefault();
     if (!joinName) return toast.dark("Please enter your name!");
 
