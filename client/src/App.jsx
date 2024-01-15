@@ -5,7 +5,8 @@ import ClientRoom from "./components/ClientRoom";
 import JoinCreateRoom from "./components/JoinCreateRoom";
 import Room from "./components/Room";
 import Sidebar from "./components/Sidebar";
-import "./style.css";
+// import "./style.css";
+import Footer from "./components/footer/Footer";
 
 const server = "http://localhost:5000";
 
@@ -81,6 +82,8 @@ const App = () => {
           setUser={setUser}
         />
       )}
+
+      <Footer />
     </div>
   );
 };

@@ -65,7 +65,7 @@ const Room = ({ userNo, socket, setUsers, setUserNo }) => {
     <div className="container-fluid">
       <div className="row">
         <h1 className="display-5 pt-4 pb-3 text-center">
-          React Drawing App - users online:{userNo}
+          users online:{userNo}
         </h1>
       </div>
       <div className="row justify-content-center align-items-center text-center py-2">
