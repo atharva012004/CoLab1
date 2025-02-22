@@ -6,14 +6,14 @@ const Footer = () => {
   return (
     <footer className="footer">
       <a
-        href="https://github.com/tushar-upadhya/whiteboard"
+        href="#"
         className="icon"
         target="_blank"
       >
         <FaGithub size={24} />
       </a>
       <a
-        href="https://www.linkedin.com/in/tushar-upadhyay-54029b135/?original_referer=https%3A%2F%2Ftusharupadhyay.vercel.app%2F"
+        href="#"
         className="icon"
         target="_blank"
       >
@@ -24,9 +24,9 @@ const Footer = () => {
         <a
           href="https://tusharupadhyay.vercel.app/"
           target="_blank"
-          className="tushar"
+          className="colab"
         >
-          Tushar Upadhyay
+          CoLAB
         </a>
       </p>
     </footer>

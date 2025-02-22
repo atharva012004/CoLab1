@@ -29,12 +29,12 @@
   color: #6c757d;
 }
 
-.tushar {
+.colab {
   text-decoration: none;
   color: #333;
   font-weight: 400;
 }
-.tushar:hover {
+.colab:hover {
   color: #618264;
   transition: all ease-in-out 0.3s;
   font-weight: bold;

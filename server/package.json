@@ -7,7 +7,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "author": "Tushar Upadhyay",
+  "author": "Atharva",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
