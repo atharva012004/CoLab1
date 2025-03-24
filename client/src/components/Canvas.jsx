@@ -14,6 +14,8 @@ const Canvas = ({
 }) => {
   const [isDrawing, setIsDrawing] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [history, setHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
 
   const handleMouseDown = (e) => {
     const { offsetX, offsetY } = e.nativeEvent;
@@ -93,6 +95,26 @@ const Canvas = ({
 
   const handleMouseUp = () => {
     setIsDrawing(false);
+    // Save the current state to history
+    setHistory((prevHistory) => [
+      ...prevHistory.slice(0, historyIndex + 1),
+      elements,
+    ]);
+    setHistoryIndex((prevIndex) => prevIndex + 1);
+  };
+
+  const undo = () => {
+    if (historyIndex > 0) {
+      setHistoryIndex((prevIndex) => prevIndex - 1);
+      setElements(history[historyIndex - 1]);
+    }
+  };
+
+  const redo = () => {
+    if (historyIndex < history.length - 1) {
+      setHistoryIndex((prevIndex) => prevIndex + 1);
+      setElements(history[historyIndex + 1]);
+    }
   };
 
   useEffect(() => {
@@ -185,6 +207,14 @@ const Canvas = ({
           }}
         />
       )}
+      <div>
+        <button onClick={undo} disabled={historyIndex <= 0}>
+          Undo
+        </button>
+        <button onClick={redo} disabled={historyIndex >= history.length - 1}>
+          Redo
+        </button>
+      </div>
     </div>
   );
 };
