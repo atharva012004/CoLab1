@@ -9,8 +9,113 @@ const Canvas = ({
   tool,
   socket,
 }) => {
-  const fabricCanvasRef = useRef(null);
-  const [isHovered, setIsHovered] = useState(false); // Reintroduced isHovered
+
+
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [history, setHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+
+  const handleMouseDown = (e) => {
+    const { offsetX, offsetY } = e.nativeEvent;
+
+    if (tool === "pencil") {
+      setElements((prevElements) => [
+        ...prevElements,
+        {
+          offsetX,
+          offsetY,
+          path: [[offsetX, offsetY]],
+          stroke: color,
+          element: tool,
+        },
+      ]);
+    } else {
+      setElements((prevElements) => [
+        ...prevElements,
+        { offsetX, offsetY, stroke: color, element: tool },
+      ]);
+    }
+
+    setIsDrawing(true);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDrawing) return;
+
+    const { offsetX, offsetY } = e.nativeEvent;
+
+    if (tool === "rect") {
+      setElements((prevElements) =>
+        prevElements.map((ele, index) =>
+          index === elements.length - 1
+            ? {
+                offsetX: ele.offsetX,
+                offsetY: ele.offsetY,
+                width: offsetX - ele.offsetX,
+                height: offsetY - ele.offsetY,
+                stroke: ele.stroke,
+                element: ele.element,
+              }
+            : ele
+        )
+      );
+    } else if (tool === "line") {
+      setElements((prevElements) =>
+        prevElements.map((ele, index) =>
+          index === elements.length - 1
+            ? {
+                offsetX: ele.offsetX,
+                offsetY: ele.offsetY,
+                width: offsetX,
+                height: offsetY,
+                stroke: ele.stroke,
+                element: ele.element,
+              }
+            : ele
+        )
+      );
+    } else if (tool === "pencil") {
+      setElements((prevElements) =>
+        prevElements.map((ele, index) =>
+          index === elements.length - 1
+            ? {
+                offsetX: ele.offsetX,
+                offsetY: ele.offsetY,
+                path: [...ele.path, [offsetX, offsetY]],
+                stroke: ele.stroke,
+                element: ele.element,
+              }
+            : ele
+        )
+      );
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDrawing(false);
+    // Save the current state to history
+    setHistory((prevHistory) => [
+      ...prevHistory.slice(0, historyIndex + 1),
+      elements,
+    ]);
+    setHistoryIndex((prevIndex) => prevIndex + 1);
+  };
+
+  const undo = () => {
+    if (historyIndex > 0) {
+      setHistoryIndex((prevIndex) => prevIndex - 1);
+      setElements(history[historyIndex - 1]);
+    }
+  };
+
+  const redo = () => {
+    if (historyIndex < history.length - 1) {
+      setHistoryIndex((prevIndex) => prevIndex + 1);
+      setElements(history[historyIndex + 1]);
+    }
+  };
+
 
   useEffect(() => {
     // Dynamically import Fabric.js
@@ -224,6 +329,31 @@ const Canvas = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       <canvas ref={canvasRef} />
+
+
+      {isHovered && (
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: "rgba(255, 255, 255, 0.1)",
+            pointerEvents: "none",
+            borderRadius: "8px",
+          }}
+        />
+      )}
+      <div>
+        <button onClick={undo} disabled={historyIndex <= 0}>
+          Undo
+        </button>
+        <button onClick={redo} disabled={historyIndex >= history.length - 1}>
+          Redo
+        </button>
+      </div>
+
     </div>
   );
 };
