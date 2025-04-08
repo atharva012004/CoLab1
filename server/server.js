@@ -1,4 +1,4 @@
-const express = require("express");
+const express=require('express')
 
 const http = require("http");
 // Importing the cors module to enable CORS with various options
@@ -16,7 +16,8 @@ const socketIO = require("socket.io");
 const io = socketIO(server);
 
 // Enabling all CORS requests
-app.use(cors());
+app.use(cors({ origin:["http://localhost:5173/"] }));
+
 // Setting up headers for CORS
 app.use((req, res, next) => {
   // Allowing all origins to make requests
