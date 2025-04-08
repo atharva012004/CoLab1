@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import io from "socket.io-client";
@@ -7,6 +8,10 @@ import Room from "./components/Room";
 import Sidebar from "./components/Sidebar";
 // import "./style.css";
 import Footer from "./components/footer/Footer";
+import Home from './components/TopPage/Home.jsx';
+import Login from './components/TopPage/Login.jsx';
+import Signup from './components/TopPage/Signup.jsx';
+import Navbar from './components/TopPage/Navbar.jsx';
 
 const server = "http://localhost:5000";
 
@@ -52,6 +57,15 @@ const App = () => {
   }, [roomJoined]);
 
   return (
+    <Router> {/* Wrap the whole app in Router */}
+      <ToastContainer />
+      <Navbar/>
+      <Routes>
+        {/* Define routes for the top pages (Home, Login, Signup) */}
+        <Route path="/" element={<Home />} /> {/* Home page */}
+        <Route path="/login" element={<Login />} /> {/* Login page */}
+        <Route path="/signup" element={<Signup />} /> {/* Signup page */}
+        <Route path="/try-it" element={
     <div className="home">
       <ToastContainer />
       {roomJoined ? (
@@ -85,6 +99,9 @@ const App = () => {
 
       <Footer />
     </div>
+    } />
+    </Routes>
+  </Router>
   );
 };
 export default App;
