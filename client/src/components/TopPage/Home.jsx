@@ -15,7 +15,7 @@ const Home = () => {
 
                     <Link 
                         to="/try-it"
-                        className=" text-white hover:text-gray-200 px-4 py-2 bg-yellow-500 rounded-md"
+                        className=" no-underline text-white hover:text-gray-200 px-4 py-2 bg-yellow-500 rounded-md"
                     >
                         Try It CoLab
                     </Link>
