@@ -18,7 +18,7 @@ Follow these steps before starting to contribute. Directly cloning and working o
 - Copy the link and clone the repository into VS Code:
 
 ```
-git clone https://github.com/your-org/your-repo.git
+git clone https://github.com/atharva012004/CoLab1.git
 cd your-repo
 ```
 
